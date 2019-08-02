@@ -5,13 +5,14 @@ import {
   StatusBar,
   View,
   Text,
-  TextInput,
-  Button
+  TextInput
 } from 'react-native';
 
 import {
   Colors
 } from 'react-native/Libraries/NewAppScreen';
+
+import { Button } from 'react-native-elements';
 
 const Root = () => {
   return (
@@ -33,12 +34,10 @@ const Root = () => {
             <TextInput style={styles.logonInput}></TextInput>
           </View>
           <View style={styles.submit}>
-            <View style={styles.btnLogin}>
-              <Button title='登录' color="#1398ff">
+            <View>
+              <Button title='登录' buttonStyle={styles.btnLogin} titleStyle={styles.btnTitle}>
               </Button>
             </View>
-            <Button title='取消' color="#ffffff">
-            </Button>
           </View>
         </View>
     </Fragment>
@@ -50,11 +49,19 @@ const styles = StyleSheet.create({
     marginTop: 46
   },
   btnLogin: {
-    color: '#999999'
+    height: 56,
+    backgroundColor: '#1398FF'
   },
+  btnTitle: {
+    fontSize: 22,
+    color: '#ffffff'
+  },
+  // btnContainer: {
+  //   height: 56
+  // },
   // logon
   logon: {
-    height: 372,
+    height: 292,
     marginLeft: 19,
     marginRight: 19,
     marginTop: -58,
@@ -62,7 +69,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     shadowColor: '#e1e1e1',
     shadowOpacity: 0.5,
-    shadowOffset: { width: 3, height: 6 },
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 3,
     paddingTop: 12,
     paddingRight: 36,
     paddingLeft: 36
