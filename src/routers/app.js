@@ -7,7 +7,7 @@ const AppNav = createStackNavigator(
     Home: {screen: pages.Home}
   },
   {
-    initialRouteName: "Root"
+    initialRouteName: "Home"
   }
 );
 

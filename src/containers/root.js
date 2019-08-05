@@ -28,17 +28,15 @@ export default class Root extends Component {
   });
 
   loginPress () {
-    // ToastAndroid.show("用户名错误", ToastAndroid.SHORT);
-    // Alert.alert(this.state.username)
-    // if (this.state.username !== 'admin') {
-    //   ToastAndroid.show('用户名错误')
-    //   return
-    // }
-    // if (this.state.password !== '123456') {
-    //   ToastAndroid.show('密码错误')
-    //   return
-    // }
-    //
+    if (this.state.username === '') {
+      ToastAndroid.show("用户名错误", ToastAndroid.SHORT);
+      return
+    }
+    if (this.state.password === '') {
+      ToastAndroid.show("密码错误", ToastAndroid.SHORT);
+      return
+    }
+
     this.props.navigation.navigate('Home')
   }
 
@@ -66,7 +64,7 @@ export default class Root extends Component {
               <TextInput
                 placeholder="请输入密码"
                 style={styles.logonInput}
-                onChangeText={(text) => {this.state.username = text}}>
+                onChangeText={(text) => {this.state.password = text}}>
               </TextInput>
             </View>
             <View style={styles.submit}>
