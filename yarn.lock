@@ -5286,7 +5286,7 @@ react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.1:
 
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
-  resolved "https://registry.npm.taobao.org/react-native-vector-icons/download/react-native-vector-icons-6.6.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native-vector-icons%2Fdownload%2Freact-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"
+  resolved "https://registry.npm.taobao.org/react-native-vector-icons/download/react-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"
   integrity sha1-Zs8ASRjrBdkHeNZL1CB3wYANSBs=
   dependencies:
     lodash "^4.0.0"
