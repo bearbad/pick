@@ -14,12 +14,23 @@ import {
   Colors
 } from 'react-native/Libraries/NewAppScreen';
 
-import { Button } from 'react-native-elements';
+import {
+  Button,
+  Overlay
+} from 'react-native-elements';
 
 export default class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
   });
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isVisible: true
+    }
+  }
+
   render () {
     return (
       <Fragment>
@@ -180,6 +191,122 @@ export default class Home extends Component {
               </Button>
             </View>
           </View>
+          {/*
+            <Overlay
+              isVisible={this.state.isVisible}
+              overlayStyle={styles.overlay}>
+              <View style={styles.overlayTitleView}>
+                <Text style={styles.overlayTitle}>请确认</Text>
+              </View>
+              <View style={styles.overlayContentView}>
+                <Text style={styles.overlayContent}>当前拣货任务未完成，确认是否退出？</Text>
+              </View>
+              <View style={styles.overlayBtn}>
+               <View style={styles.overlayConfirmView}>
+                 <Button title='确认'
+                   buttonStyle={styles.overlayConfirmBtn}
+                   titleStyle={styles.overlayConfirmTitle}>
+                 </Button>
+               </View>
+               <View style={styles.overlayCancelView}>
+                 <Button title='取消'
+                   buttonStyle={styles.overlayCancelBtn}
+                   titleStyle={styles.overlayCancelTitle}>
+                 </Button>
+               </View>
+              </View>
+            </Overlay>
+            */}
+          <Overlay
+            isVisible={this.state.isVisible}
+            overlayStyle={styles.overlay1}>
+            <View style={styles.overlayTitleView}>
+              <Text style={styles.overlayTitle}>请确认</Text>
+            </View>
+            <View style={styles.overlayContentView}>
+               <View style={styles.overlayContentTd}>
+                <View style={styles.overlayContentTdLeftView}>
+                  <Text style={styles.overlayContentTdLeftLabel}>
+                    商品名称：
+                  </Text>
+                </View>
+                <View style={styles.overlayContentTdRightView}>
+                  <Text style={styles.overlayContentTdRightLabel}>
+                    三元酸奶200g原味
+                  </Text>
+                </View>
+               </View>
+            </View>
+            <View style={styles.overlayContentView}>
+               <View style={styles.overlayContentTd}>
+                <View style={styles.overlayContentTdLeftView}>
+                  <Text style={styles.overlayContentTdLeftLabel}>
+                    商品条码：
+                  </Text>
+                </View>
+                <View style={styles.overlayContentTdRightView}>
+                  <Text style={styles.overlayContentTdRightLabel}>
+                    069433224422
+                  </Text>
+                </View>
+               </View>
+            </View>
+            <View style={styles.overlayContentView}>
+               <View style={styles.overlayContentTd}>
+                <View style={styles.overlayContentTdLeftView}>
+                  <Text style={styles.overlayContentTdLeftLabel}>
+                    应拣数量：
+                  </Text>
+                </View>
+                <View style={styles.overlayContentTdRightView}>
+                  <Text style={styles.overlayContentTdRightLabel}>
+                    5
+                  </Text>
+                </View>
+               </View>
+            </View>
+            <View style={styles.overlayContentView}>
+               <View style={styles.overlayContentTd}>
+                <View style={styles.overlayContentTdLeftView}>
+                  <Text style={styles.overlayContentTdLeftLabel}>
+                    已拣数量：
+                  </Text>
+                </View>
+                <View style={[styles.overlayContentTdRightView, styles.overlayContentTdRightInput]}>
+                  <TextInput />
+                  {/*<Text style={styles.overlayContentTdRightLabel}>
+                    5
+                  </Text>*/}
+                </View>
+               </View>
+            </View>
+            <View style={styles.overlayContentView}>
+               <View style={styles.overlayContentTd}>
+                <View style={styles.overlayContentTdLeftView}>
+                  <Text style={styles.overlayContentTdLeftLabel}>
+                    缺货数量：
+                  </Text>
+                </View>
+                <View style={[styles.overlayContentTdRightView, styles.overlayContentTdRightInput]}>
+                  <TextInput />
+                </View>
+               </View>
+            </View>
+            <View style={styles.overlayBtn}>
+             <View style={styles.overlayConfirmView}>
+               <Button title='确认'
+                 buttonStyle={styles.overlayConfirmBtn}
+                 titleStyle={styles.overlayConfirmTitle}>
+               </Button>
+             </View>
+             <View style={styles.overlayCancelView}>
+               <Button title='取消'
+                 buttonStyle={styles.overlayCancelBtn}
+                 titleStyle={styles.overlayCancelTitle}>
+               </Button>
+             </View>
+            </View>
+          </Overlay>
       </Fragment>
     )
   }
@@ -190,6 +317,95 @@ const styles = StyleSheet.create({
     flex: 1
     // justifyContent: 'center',
     // alignItems: 'center'
+  },
+  overlay1: {
+    height: 520,
+    width: 440
+  },
+  overlayContentTd: {
+    height: 50,
+    flexDirection: 'row'
+  },
+  overlayContentTdLeftView: {
+    width: 130,
+    // backgroundColor: 'red',
+    justifyContent: 'center'
+  },
+  overlayContentTdLeftLabel: {
+    fontSize: 22,
+    color: '#999999'
+  },
+  overlayContentTdRightView: {
+    flex: 1,
+    // backgroundColor: 'green',
+    justifyContent: 'center'
+  },
+  overlayContentTdRightInput: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ededed'
+  },
+  overlayContentTdRightLabel: {
+    fontSize: 22,
+    color: '#262626'
+  },
+  overlayContentTdInput: {
+    flex: 1,
+    backgroundColor: 'green'
+  },
+  //
+  overlayBtn: {
+    flexDirection: 'row'
+  },
+  overlayConfirmView: {
+    // backgroundColor: 'red',
+    alignItems: 'center',
+    flex: 1
+  },
+  overlayConfirmBtn: {
+    height: 54,
+    width: 189,
+    backgroundColor: '#1398FF'
+  },
+  overlayConfirmTitle: {
+    fontSize: 22,
+    color: '#FFFFFF'
+  },
+  overlayCancelView: {
+    // backgroundColor: '#999999',
+    alignItems: 'center',
+    flex: 1
+  },
+  overlayCancelBtn: {
+    height: 54,
+    width: 189,
+    backgroundColor: 'white',
+    borderWidth: 1
+  },
+  overlayCancelTitle: {
+    fontSize: 22,
+    color: '#999999'
+  },
+  overlay: {
+    height: 220,
+    width: 440
+  },
+  overlayTitleView: {
+    // backgroundColor: 'red',
+    paddingTop: 10,
+    paddingBottom: 20,
+    alignItems: 'center'
+  },
+  overlayContent: {
+    fontSize: 22,
+    color: '#262626'
+  },
+  overlayTitle: {
+    fontSize: 30,
+    color: '#262626'
+  },
+  overlayContentView: {
+    marginBottom: 20,
+    alignItems: 'center'
   },
   // 列表top
   conTop: {
