@@ -15,6 +15,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { Button } from 'react-native-elements';
+
+import Toast, {DURATION} from 'react-native-easy-toast';
+
 export default class Root extends Component {
   constructor(props) {
     super(props);
@@ -29,11 +32,11 @@ export default class Root extends Component {
 
   loginPress () {
     if (this.state.username === '') {
-      ToastAndroid.show("用户名错误", ToastAndroid.SHORT);
+      this.refs.toast.show('用户名错误');
       return
     }
     if (this.state.password === '') {
-      ToastAndroid.show("密码错误", ToastAndroid.SHORT);
+      this.refs.toast.show('密码错误');
       return
     }
 
@@ -77,6 +80,7 @@ export default class Root extends Component {
               </View>
             </View>
           </View>
+          <Toast ref="toast"/>
       </Fragment>
     )
   }

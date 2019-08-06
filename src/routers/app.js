@@ -9,7 +9,7 @@ const AppNav = createStackNavigator(
     SettingIndex: {screen: pages.SettingIndex}
   },
   {
-    initialRouteName: "SettingIndex"
+    initialRouteName: "Root"
   }
 );
 
