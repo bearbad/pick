@@ -5,10 +5,11 @@ const AppNav = createStackNavigator(
   {
     Root: {screen: pages.Root},
     Home: {screen: pages.Home},
-    PickIndex: {screen: pages.PickIndex}
+    PickIndex: {screen: pages.PickIndex},
+    SettingIndex: {screen: pages.SettingIndex}
   },
   {
-    initialRouteName: "PickIndex"
+    initialRouteName: "SettingIndex"
   }
 );
 
