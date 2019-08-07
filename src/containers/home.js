@@ -5,7 +5,8 @@ import {
   StatusBar,
   View,
   Text,
-  Image
+  Image,
+  TouchableNativeFeedback
 } from 'react-native';
 
 import {
@@ -19,6 +20,15 @@ export default class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
   });
+
+  _settingPress () {
+    this.props.navigation.navigate('SettingIndex')
+  }
+
+  _toOrderPick () {
+    this.props.navigation.navigate('PickIndex')
+  }
+
   render () {
     return (
       <Fragment>
@@ -27,12 +37,15 @@ export default class Home extends Component {
             <Text style={styles.title}>首页</Text>
           </View>
           <View style={styles.container}>
-            <View style={styles.oneView}>
-              <Image
-                source={require('../images/icon_order_pick.png')}
-                style={styles.img}/>
-              <Text style={styles.text}>捡货</Text>
-            </View>
+            <TouchableNativeFeedback
+              onPress={this._toOrderPick.bind(this)}>
+              <View style={styles.oneView}>
+                <Image
+                  source={require('../images/icon_order_pick.png')}
+                  style={styles.img}/>
+                <Text style={styles.text}>捡货</Text>
+              </View>
+            </TouchableNativeFeedback>
             <View style={styles.oneView}>
               <Image
                 source={require('../images/icon_pack.png')}
@@ -51,18 +64,23 @@ export default class Home extends Component {
                 style={styles.img}/>
               <Text style={styles.text}>捡打一体</Text>
             </View>
-            <View style={styles.oneView}>
-              <Image
-                source={require('../images/icon_setting.png')}
-                style={styles.img}/>
-              <Text style={styles.text}>系统设置</Text>
-            </View>
-            <View style={styles.oneView}>
-              <Image
-                source={require('../images/icon_setting.png')}
-                style={styles.img}/>
-              <Text style={[styles.text, styles.daiding]}>待定</Text>
-            </View>
+            <TouchableNativeFeedback
+              onPress={this._settingPress.bind(this)}>
+              <View style={styles.oneView}>
+                <Image
+                  source={require('../images/icon_setting.png')}
+                  style={styles.img}/>
+                <Text style={styles.text}>系统设置</Text>
+              </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback>
+              <View style={styles.oneView}>
+                <Image
+                  source={require('../images/icon_setting.png')}
+                  style={styles.img}/>
+                <Text style={[styles.text, styles.daiding]}>待定</Text>
+              </View>
+            </TouchableNativeFeedback>
           </View>
       </Fragment>
     )

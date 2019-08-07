@@ -27,11 +27,56 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: true
+      isHasTask: true,
+      isVisible: false
     }
   }
 
   render () {
+    let content = this.state.isHasTask ? <View style={styles.submit}>
+        <Button title='获取任务'
+          containerStyle={styles.btnCon}
+          buttonStyle={styles.btnLogin}
+          titleStyle={styles.btnTitle}>
+        </Button>
+      </View> : <View><View style={styles.conTop}>
+        <View style={styles.conTopView}>
+          <Text style={styles.conTopText}>打包箱号：</Text>
+        </View>
+        <TextInput placeholder="扫码输入" style={styles.conTopTextInput}/>
+        <View style={styles.conTopBtnView}>
+          <Button title='更换' buttonStyle={styles.conTopBtn}
+            titleStyle={styles.conTopBtnTitle}>
+          </Button>
+        </View>
+      </View>
+      <View style={styles.conCen}>
+        <View style={styles.conCenHeader}>
+          <Text style={[styles.conCenHeaderText, styles.textCount]}>商品数量：9</Text>
+          <Text style={[styles.conCenHeaderText, styles.textJian]}>商品件数：24</Text>
+        </View>
+        <View style={styles.conCenTh}>
+          <Text style={styles.conCenThText}>序号</Text>
+          <Text style={styles.conCenThText}>商品名称</Text>
+          <Text style={styles.conCenThText}>商品条码</Text>
+          <Text style={styles.conCenThText}>应拣/已拣/缺货</Text>
+          <Text style={styles.conCenThText}>状态</Text>
+        </View>
+        <ScrollView>
+          <View style={styles.conCenTh}>
+            <Text style={styles.conCenThText}>1</Text>
+            <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
+            <Text style={styles.conCenThText}>6943322442224</Text>
+            <Text style={styles.conCenThText}>5/5/0</Text>
+            <Text style={styles.conCenThText}>拣货中</Text>
+          </View>
+        </ScrollView>
+      </View>
+      <View style={styles.conBot}>
+        <Button title='提交打包' buttonStyle={styles.conBotBtn}
+          titleStyle={styles.btnTitle}>
+        </Button>
+      </View></View>
     return (
       <Fragment>
         <StatusBar backgroundColor='black' barStyle="light-content" />
@@ -52,144 +97,7 @@ export default class Home extends Component {
             </View>
           </View>
           <View style={styles.container}>
-          {/*
-            <View style={styles.submit}>
-              <Button title='获取任务'
-                containerStyle={styles.btnCon}
-                buttonStyle={styles.btnLogin}
-                titleStyle={styles.btnTitle}>
-              </Button>
-            </View>
-            */}
-            <View style={styles.conTop}>
-              <View style={styles.conTopView}>
-                <Text style={styles.conTopText}>打包箱号：</Text>
-              </View>
-              <TextInput placeholder="扫码输入" style={styles.conTopTextInput}/>
-              <View style={styles.conTopBtnView}>
-                <Button title='更换' buttonStyle={styles.conTopBtn}
-                  titleStyle={styles.conTopBtnTitle}>
-                </Button>
-              </View>
-            </View>
-            <View style={styles.conCen}>
-              <View style={styles.conCenHeader}>
-                <Text style={[styles.conCenHeaderText, styles.textCount]}>商品数量：9</Text>
-                <Text style={[styles.conCenHeaderText, styles.textJian]}>商品件数：24</Text>
-              </View>
-              <View style={styles.conCenTh}>
-                <Text style={styles.conCenThText}>序号</Text>
-                <Text style={styles.conCenThText}>商品名称</Text>
-                <Text style={styles.conCenThText}>商品条码</Text>
-                <Text style={styles.conCenThText}>应拣/已拣/缺货</Text>
-                <Text style={styles.conCenThText}>状态</Text>
-              </View>
-              <ScrollView>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-                <View style={styles.conCenTh}>
-                  <Text style={styles.conCenThText}>1</Text>
-                  <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                  <Text style={styles.conCenThText}>6943322442224</Text>
-                  <Text style={styles.conCenThText}>5/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
-                </View>
-              </ScrollView>
-            </View>
-            <View style={styles.conBot}>
-              <Button title='提交打包' buttonStyle={styles.conBotBtn}
-                titleStyle={styles.btnTitle}>
-              </Button>
-            </View>
+            {content}
           </View>
           {/*
             <Overlay
@@ -217,7 +125,7 @@ export default class Home extends Component {
               </View>
             </Overlay>
             */}
-          <Overlay
+          {/*<Overlay
             isVisible={this.state.isVisible}
             overlayStyle={styles.overlay1}>
             <View style={styles.overlayTitleView}>
@@ -274,9 +182,6 @@ export default class Home extends Component {
                 </View>
                 <View style={[styles.overlayContentTdRightView, styles.overlayContentTdRightInput]}>
                   <TextInput />
-                  {/*<Text style={styles.overlayContentTdRightLabel}>
-                    5
-                  </Text>*/}
                 </View>
                </View>
             </View>
@@ -306,7 +211,7 @@ export default class Home extends Component {
                </Button>
              </View>
             </View>
-          </Overlay>
+          </Overlay>*/}
       </Fragment>
     )
   }
@@ -499,8 +404,10 @@ const styles = StyleSheet.create({
   },
   // 获取任务
   submit: {
-    width: 440,
-    marginTop: 200
+    marginTop: 200,
+    paddingLeft: 20,
+    paddingRight: 20,
+    textAlign: 'center'
   },
 
   btnCon: {

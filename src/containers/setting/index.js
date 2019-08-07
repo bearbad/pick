@@ -7,7 +7,8 @@ import {
   Text,
   Image,
   TextInput,
-  ScrollView
+  ScrollView,
+  TouchableNativeFeedback
 } from 'react-native';
 
 import {
@@ -30,14 +31,25 @@ export default class Home extends Component {
     }
   }
 
+  _logout () {
+    this.props.navigation.navigate('Root')
+  }
+
+  _toHome () {
+    this.props.navigation.navigate('Home')
+  }
+
   render () {
     return (
       <Fragment>
         <StatusBar backgroundColor='black' barStyle="light-content" />
           <View style={styles.header}>
-            <View style={styles.heaL}>
-              <Text style={[styles.title, styles.titleL]}>首页</Text>
-            </View>
+            <TouchableNativeFeedback
+              onPress={this._toHome.bind(this)}>
+              <View style={styles.heaL}>
+                <Text style={[styles.title, styles.titleL]}>首页</Text>
+              </View>
+            </TouchableNativeFeedback>
             <View style={styles.heaC}>
               <Text style={[styles.title, styles.titleC]}>系统设置</Text>
             </View>
@@ -67,11 +79,14 @@ export default class Home extends Component {
                 <TextInput style={styles.conTdInput}/>
               </View>
             </View>
-            <View style={styles.conBot}>
-              <Button title='退出当前登陆' buttonStyle={styles.conBotBtn}
-                titleStyle={styles.btnTitle}>
-              </Button>
-            </View>
+              <View style={styles.conBot}>
+                <Button
+                  title='退出当前登陆'
+                  buttonStyle={styles.conBotBtn}
+                  titleStyle={styles.btnTitle}
+                  onPress={this._logout.bind(this)}>
+                </Button>
+              </View>
           </View>
       </Fragment>
     )
