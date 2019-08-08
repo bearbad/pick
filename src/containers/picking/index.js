@@ -34,6 +34,9 @@ export default class Home extends Component {
       isHeaderC: false,
       batchNo: 0,
       needMinutes: 0,
+      skuNums: '0', // 商品数量
+      goodsCount: 0, // 商品件数
+      goodsList: [],
       isVisible: false
     }
   }
@@ -60,18 +63,17 @@ export default class Home extends Component {
         if (code === 200) {
           this.setState({
             isHasTask: false,
-            isHeaderC: true
-          })
-          this.setState({
+            isHeaderC: true,
             batchNo: data.batchNo,
-            needMinutes: data.needMinutes
+            needMinutes: data.needMinutes,
+            skuNums: data.skuNums,
+            goodsCount: data.goodsCount,
+            goodsList: data.goodsList
           })
         } else {
           this.setState({
             isHasTask: true,
-            isHeaderC: false
-          })
-          this.setState({
+            isHeaderC: false,
             batchNo: 0,
             needMinutes: 0
           })
@@ -88,7 +90,9 @@ export default class Home extends Component {
     <HeaderCNO />
     let content = this.state.isHasTask ?
     <GetTask getTask={() => {this._getTask()}}/> :
-    <TaskList />
+    <TaskList skuNums={this.state.skuNums}
+      goodsCount={this.state.goodsCount}
+      goodsList={this.state.goodsList}/>
     return (
       <Fragment>
         <StatusBar backgroundColor='black' barStyle="light-content" />

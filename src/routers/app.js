@@ -10,7 +10,7 @@ const AppNav = createStackNavigator(
     TaskIndex: {screen: pages.TaskIndex}
   },
   {
-    initialRouteName: "TaskIndex"
+    initialRouteName: "Root"
   }
 );
 

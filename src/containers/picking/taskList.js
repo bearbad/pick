@@ -21,6 +21,10 @@ export default class HeaderC extends Component {
     header: null
   });
 
+  constructor(props) {
+    super(props);
+  }
+
   render () {
     return (
       <Fragment>
@@ -37,8 +41,8 @@ export default class HeaderC extends Component {
           </View>
           <View style={styles.conCen}>
             <View style={styles.conCenHeader}>
-              <Text style={[styles.conCenHeaderText, styles.textCount]}>商品数量：9</Text>
-              <Text style={[styles.conCenHeaderText, styles.textJian]}>商品件数：24</Text>
+              <Text style={[styles.conCenHeaderText, styles.textCount]}>商品数量：{this.props.skuNums}</Text>
+              <Text style={[styles.conCenHeaderText, styles.textJian]}>商品件数：{this.props.goodsCount}</Text>
             </View>
             <View style={styles.conCenTh}>
               <Text style={styles.conCenThText}>序号</Text>
@@ -48,13 +52,17 @@ export default class HeaderC extends Component {
               <Text style={styles.conCenThText}>状态</Text>
             </View>
             <ScrollView>
-              <View style={styles.conCenTh}>
-                <Text style={styles.conCenThText}>1</Text>
-                <Text style={styles.conCenThText}>三元酸奶200g原味</Text>
-                <Text style={styles.conCenThText}>6943322442224</Text>
-                <Text style={styles.conCenThText}>5/5/0</Text>
-                <Text style={styles.conCenThText}>拣货中</Text>
-              </View>
+            {this.props.goodsList.map((item, index) => {
+              return (
+                <View style={styles.conCenTh}>
+                  <Text style={styles.conCenThText}>{index+1}</Text>
+                  <Text style={styles.conCenThText}>{item.goodsName}</Text>
+                  <Text style={styles.conCenThText}>{item.goodsSkuNo}</Text>
+                  <Text style={styles.conCenThText}>{item.pickingShouldCount}/5/0</Text>
+                  <Text style={styles.conCenThText}>拣货中</Text>
+                </View>
+              )
+            })}
             </ScrollView>
           </View>
           <View style={styles.conBot}>
