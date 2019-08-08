@@ -37,14 +37,14 @@ export default class Home extends Component {
     db = SQLite.openDatabase('test.db', '1.0', '', 1);
     db.transaction(function (txn) {
       txn.executeSql('DROP TABLE IF EXISTS Tasks', []);
-      txn.executeSql('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goods)', []);
-      txn.executeSql('INSERT INTO Users (name) VALUES (:name)', ['nora']);
+      txn.executeSql('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goodsSkuNo VARCHAR(30), pickingShouldCount INT, pickingCount INT, lessCount INT, status INT)', []);
+      {/*txn.executeSql('INSERT INTO Users (name) VALUES (:name)', ['nora']);
       txn.executeSql('INSERT INTO Users (name) VALUES (:name)', ['takuya']);
       txn.executeSql('SELECT * FROM `users`', [], function (tx, res) {
         for (let i = 0; i < res.rows.length; ++i) {
           console.log('item:', res.rows.item(i));
         }
-      });
+      });*/}
     });
 
     this.state = {
