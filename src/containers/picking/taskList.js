@@ -24,7 +24,6 @@ export default class HeaderC extends Component {
   render () {
     return (
       <Fragment>
-        <View>
           <View style={styles.conTop}>
             <View style={styles.conTopView}>
               <Text style={styles.conTopText}>打包箱号：</Text>
@@ -63,7 +62,6 @@ export default class HeaderC extends Component {
               titleStyle={styles.btnTitle}>
             </Button>
           </View>
-        </View>
       </Fragment>
     )
   }
@@ -112,6 +110,7 @@ const styles = StyleSheet.create({
   // 列表中间
   conCen: {
     flex: 1,
+    // height: 500,
     // backgroundColor: 'orange',
     borderTopWidth: 1,
     borderTopColor: '#ededed',

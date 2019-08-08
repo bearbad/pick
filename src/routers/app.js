@@ -6,10 +6,11 @@ const AppNav = createStackNavigator(
     Root: {screen: pages.Root},
     Home: {screen: pages.Home},
     PickIndex: {screen: pages.PickIndex},
-    SettingIndex: {screen: pages.SettingIndex}
+    SettingIndex: {screen: pages.SettingIndex},
+    TaskIndex: {screen: pages.TaskIndex}
   },
   {
-    initialRouteName: "Root"
+    initialRouteName: "TaskIndex"
   }
 );
 

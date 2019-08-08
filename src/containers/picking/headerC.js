@@ -13,15 +13,19 @@ export default class HeaderC extends Component {
     header: null
   });
 
+  constructor(props) {
+    super(props);
+  }
+
   render () {
     return (
       <Fragment>
         <View style={styles.heaC}>
           <View>
-            <Text style={styles.titleC}>批次号：201906200</Text>
+            <Text style={styles.titleC}>批次号：{this.props.batchNo}</Text>
           </View>
           <View>
-            <Text style={styles.titleC}>剩余时间：30分钟</Text>
+            <Text style={styles.titleC}>剩余时间：{this.props.needMinutes}分钟</Text>
           </View>
         </View>
       </Fragment>

@@ -18,6 +18,10 @@ import {
   Overlay
 } from 'react-native-elements';
 export default class HeaderC extends Component {
+  constructor(props){
+    super(props);
+  }
+
   static navigationOptions = ({ navigation }) => ({
     header: null
   });
@@ -27,7 +31,7 @@ export default class HeaderC extends Component {
       <Fragment>
         <View style={styles.submit}>
           <Button title='获取任务'
-            // onPress={ () => { this.props._getTask }}
+            onPress={() => {this.props.getTask()}}
             containerStyle={styles.btnCon}
             buttonStyle={styles.btnLogin}
             titleStyle={styles.btnTitle}>

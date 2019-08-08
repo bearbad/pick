@@ -32,36 +32,63 @@ export default class Home extends Component {
     this.state = {
       isHasTask: true,
       isHeaderC: false,
+      batchNo: 0,
+      needMinutes: 0,
       isVisible: false
     }
   }
 
-  // _getTask () {
-  //   let options = {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       empId: 1002,
-  //       empNo: 10002,
-  //       shopCode: 1009
-  //     })
-  //   }
-  //   fetch('http://10.115.5.143:8080/picking/getPickingTask', options)
-  //     .then((response) => {
-  //       return response.json()
-  //     }).then((result) => {
-  //       console.log(result)
-  //     }).catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
+  _getTask () {
+    let options = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        empId: 1002,
+        empNo: 10002,
+        shopCode: 1009
+      })
+    }
+    fetch('http://10.115.5.143:8080/picking/getPickingTask', options)
+      .then((response) => {
+        return response.json()
+      }).then((result) => {
+        console.log(result)
+        let {code, msg, data} = result
+        if (code === 200) {
+          this.setState({
+            isHasTask: false,
+            isHeaderC: true
+          })
+          this.setState({
+            batchNo: data.batchNo,
+            needMinutes: data.needMinutes
+          })
+        } else {
+          this.setState({
+            isHasTask: true,
+            isHeaderC: false
+          })
+          this.setState({
+            batchNo: 0,
+            needMinutes: 0
+          })
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
+  }
 
   render () {
-    let headerCView = this.state.isHeaderC ? <HeaderC /> : <HeaderCNO />
-    let content = this.state.isHasTask ? <GetTask /> : <TaskList />
+    let headerCView = this.state.isHeaderC ?
+    <HeaderC batchNo={this.state.batchNo}
+      needMinutes={this.state.needMinutes}/> :
+    <HeaderCNO />
+    let content = this.state.isHasTask ?
+    <GetTask getTask={() => {this._getTask()}}/> :
+    <TaskList />
     return (
       <Fragment>
         <StatusBar backgroundColor='black' barStyle="light-content" />
