@@ -14,6 +14,8 @@ import com.facebook.soloader.SoLoader;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import java.util.List;
 
+import dog.craftz.sqlite_2.RNSqlite2Package;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -29,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
       packages.add(new RNGestureHandlerPackage());
+      packages.add(new RNSqlite2Package());
       return packages;
     }
 

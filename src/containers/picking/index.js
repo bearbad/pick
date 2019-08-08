@@ -7,7 +7,8 @@ import {
   Text,
   Image,
   TextInput,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 
 import {
@@ -22,6 +23,9 @@ import HeaderC from './headerC.js'
 import HeaderCNO from './headerCNO.js'
 import GetTask from './getTask.js'
 import TaskList from './taskList.js'
+
+import SQLite from 'react-native-sqlite-2';
+let db;
 export default class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
@@ -29,6 +33,20 @@ export default class Home extends Component {
 
   constructor(props) {
     super(props);
+
+    db = SQLite.openDatabase('test.db', '1.0', '', 1);
+    db.transaction(function (txn) {
+      txn.executeSql('DROP TABLE IF EXISTS Tasks', []);
+      txn.executeSql('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goods)', []);
+      txn.executeSql('INSERT INTO Users (name) VALUES (:name)', ['nora']);
+      txn.executeSql('INSERT INTO Users (name) VALUES (:name)', ['takuya']);
+      txn.executeSql('SELECT * FROM `users`', [], function (tx, res) {
+        for (let i = 0; i < res.rows.length; ++i) {
+          console.log('item:', res.rows.item(i));
+        }
+      });
+    });
+
     this.state = {
       isHasTask: true,
       isHeaderC: false,

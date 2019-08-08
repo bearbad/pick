@@ -11,6 +11,12 @@ module.exports = {
         android: null,
         ios: null,
       }
+    },
+    'react-native-sqlite-2': {
+      platforms: {
+        android: null,
+        ios: null,
+      }
     }
   },
 };
