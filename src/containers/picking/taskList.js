@@ -54,7 +54,7 @@ export default class HeaderC extends Component {
             <ScrollView>
             {this.props.goodsList.map((item, index) => {
               return (
-                <View style={styles.conCenTh}>
+                <View style={styles.conCenTh} key={item.id}>
                   <Text style={styles.conCenThText}>{index+1}</Text>
                   <Text style={styles.conCenThText}>{item.goodsName}</Text>
                   <Text style={styles.conCenThText}>{item.goodsSkuNo}</Text>
