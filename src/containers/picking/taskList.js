@@ -58,8 +58,8 @@ export default class HeaderC extends Component {
                   <Text style={styles.conCenThText}>{index+1}</Text>
                   <Text style={styles.conCenThText}>{item.goodsName}</Text>
                   <Text style={styles.conCenThText}>{item.goodsSkuNo}</Text>
-                  <Text style={styles.conCenThText}>{item.pickingShouldCount}/5/0</Text>
-                  <Text style={styles.conCenThText}>拣货中</Text>
+                  <Text style={styles.conCenThText}>{item.pickingShouldCount}/{item.pickingCount}/{item.lessCount}</Text>
+                  <Text style={styles.conCenThText}>{item.status}</Text>
                 </View>
               )
             })}

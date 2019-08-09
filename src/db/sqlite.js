@@ -40,7 +40,6 @@ function closeDB(){
 }
 
 function createTable(sql, callBack) {
-  debugger
   console.log(`createTable is =${sql}`)
   DB.transaction((tx) => {
     tx.executeSql(

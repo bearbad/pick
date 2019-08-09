@@ -8,7 +8,9 @@ import {
   Image,
   TextInput,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  TouchableNativeFeedback,
+  Alert
 } from 'react-native';
 
 import {
@@ -35,13 +37,10 @@ export default class Home extends Component {
 
   constructor(props) {
     super(props);
-
-    DB.initDB()
-    DB.createTable('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goodsSkuNo VARCHAR(30), pickingShouldCount INT, pickingCount INT, lessCount INT, status INT)')
-    // DB.close()
     this.state = {
       isHasTask: true,
       isHeaderC: false,
+      isGetTask: true,
       batchNo: 0,
       needMinutes: 0,
       skuNums: '0', // 商品数量
@@ -50,6 +49,21 @@ export default class Home extends Component {
       taskArray: [],
       isVisible: false
     }
+    DB.initDB()
+    DB.createTable('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goodsSkuNo VARCHAR(30), pickingShouldCount INT, pickingCount INT, lessCount INT, status INT)')
+    // 有没有任务
+    DB.selectDataFromTable('Tasks', (is, ret) => {
+      if (is) {
+        if (ret.length !== 0) {
+          this.setState({
+            taskArray: ret,
+            isGetTask: false,
+            isHasTask: false,
+            isHeaderC: true
+          })
+        }
+      }
+    })
   }
 
   _getTask () {
@@ -81,21 +95,27 @@ export default class Home extends Component {
             goodsCount: data.goodsCount,
             goodsList: data.goodsList
           })
-          let taskArray = []
-          debugger
-          data.goodsList.forEach(item => {
-            let model = new TaskEntity(
-              item.goodsName,
-              item.goodsSkuNo,
-              item.pickingShouldCount,
-              0,
-              0,
-              '未开始')
-              taskArray.push({...model.model})
-          })
-          this.setState({
-            taskArray: taskArray
-          })
+          if (this.state.goodsList.length === 0) {
+            Alert.alert('暂无任务')
+          } else {
+            let taskArray = []
+            data.goodsList.forEach(item => {
+              let model = new TaskEntity(
+                item.goodsName,
+                item.goodsSkuNo,
+                item.pickingShouldCount,
+                0,
+                0,
+                '未开始')
+                DB.insertDataToTable('Tasks', model.model, (is) => {
+                  is && taskArray.push({...model.model})
+                })
+            })
+            this.setState({
+              taskArray: taskArray,
+              isGetTask: false
+            })
+          }
         } else {
           this.setState({
             isHasTask: true,
@@ -107,6 +127,27 @@ export default class Home extends Component {
       }).catch((error) => {
         console.log(error)
       })
+  }
+
+  _toHome () {
+    Alert.alert(
+      '确定？',
+      '还未完成当前捡货任务',
+      [
+        {text: '确定', onPress: () => {
+          this.props.navigation.navigate('Home')
+        }},
+        {text: '取消', onPress: () => {}},
+      ]
+    )
+  }
+
+  _stop () {
+    this.setState({
+      isGetTask: !this.state.isGetTask
+    })
+    let text = !this.state.isGetTask ? '获取中' : '已暂停'
+    Alert.alert(text)
   }
 
   render () {
@@ -123,13 +164,19 @@ export default class Home extends Component {
       <Fragment>
         <StatusBar backgroundColor='black' barStyle="light-content" />
           <View style={styles.header}>
-            <View style={styles.heaL}>
-              <Text style={[styles.title, styles.titleL]}>首页</Text>
-            </View>
+            <TouchableNativeFeedback
+              onPress={this._toHome.bind(this)}>
+              <View style={styles.heaL}>
+                <Text style={[styles.title, styles.titleL]}>首页</Text>
+              </View>
+            </TouchableNativeFeedback>
             {headerCView}
-            <View style={styles.heaR}>
-              <Text style={[styles.title, styles.titleR]}>暂停</Text>
-            </View>
+            <TouchableNativeFeedback
+              onPress={this._stop.bind(this)}>
+              <View style={styles.heaR}>
+                <Text style={[styles.title, styles.titleR]}>{this.state.isGetTask ? '获取中' : '已暂停'}</Text>
+              </View>
+            </TouchableNativeFeedback>
           </View>
           <View style={styles.container}>
             {content}
@@ -256,7 +303,7 @@ const styles = StyleSheet.create({
   },
 
   heaR: {
-    width: 70,
+    width: 100,
     // backgroundColor: 'green'
   },
   titleR: {
