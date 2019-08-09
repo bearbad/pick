@@ -24,8 +24,10 @@ import HeaderCNO from './headerCNO.js'
 import GetTask from './getTask.js'
 import TaskList from './taskList.js'
 
-import SQLite from 'react-native-sqlite-2';
-let db;
+import TaskEntity from '../entity/task.js'
+
+import DB from '../../db/sqlite.js'
+
 export default class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
@@ -34,19 +36,9 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
 
-    db = SQLite.openDatabase('test.db', '1.0', '', 1);
-    db.transaction(function (txn) {
-      txn.executeSql('DROP TABLE IF EXISTS Tasks', []);
-      txn.executeSql('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goodsSkuNo VARCHAR(30), pickingShouldCount INT, pickingCount INT, lessCount INT, status INT)', []);
-      {/*txn.executeSql('INSERT INTO Users (name) VALUES (:name)', ['nora']);
-      txn.executeSql('INSERT INTO Users (name) VALUES (:name)', ['takuya']);
-      txn.executeSql('SELECT * FROM `users`', [], function (tx, res) {
-        for (let i = 0; i < res.rows.length; ++i) {
-          console.log('item:', res.rows.item(i));
-        }
-      });*/}
-    });
-
+    DB.initDB()
+    DB.createTable('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goodsSkuNo VARCHAR(30), pickingShouldCount INT, pickingCount INT, lessCount INT, status INT)')
+    // DB.close()
     this.state = {
       isHasTask: true,
       isHeaderC: false,
@@ -55,6 +47,7 @@ export default class Home extends Component {
       skuNums: '0', // 商品数量
       goodsCount: 0, // 商品件数
       goodsList: [],
+      taskArray: [],
       isVisible: false
     }
   }
@@ -88,6 +81,21 @@ export default class Home extends Component {
             goodsCount: data.goodsCount,
             goodsList: data.goodsList
           })
+          let taskArray = []
+          debugger
+          data.goodsList.forEach(item => {
+            let model = new TaskEntity(
+              item.goodsName,
+              item.goodsSkuNo,
+              item.pickingShouldCount,
+              0,
+              0,
+              '未开始')
+              taskArray.push({...model.model})
+          })
+          this.setState({
+            taskArray: taskArray
+          })
         } else {
           this.setState({
             isHasTask: true,
@@ -110,7 +118,7 @@ export default class Home extends Component {
     <GetTask getTask={() => {this._getTask()}}/> :
     <TaskList skuNums={this.state.skuNums}
       goodsCount={this.state.goodsCount}
-      goodsList={this.state.goodsList}/>
+      goodsList={this.state.taskArray}/>
     return (
       <Fragment>
         <StatusBar backgroundColor='black' barStyle="light-content" />
