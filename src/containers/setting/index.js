@@ -86,7 +86,7 @@ class Home extends Component {
                   title='退出当前登陆'
                   buttonStyle={styles.conBotBtn}
                   titleStyle={styles.btnTitle}
-                  onPress={this._toHome.bind(this)}>
+                  onPress={this._logout.bind(this)}>
                 </Button>
               </View>
           </View>

@@ -10,7 +10,8 @@ import {
   ScrollView,
   AsyncStorage,
   TouchableNativeFeedback,
-  Alert
+  Alert,
+  ToastAndroid
 } from 'react-native';
 
 import {
@@ -36,8 +37,21 @@ export default class Home extends Component {
     header: null
   });
 
+  componentDidMount () {
+    this.timer = setInterval(() => {
+        if (!this.state.isHasTask) return
+        this._getTask()
+        ToastAndroid.show('每隔 5 秒钟触发一次', ToastAndroid.SHORT);
+      }, 5000);
+  }
+
+  componentWillUnmount () {
+    this.timer && setInterval(this.timer);
+  }
+
   constructor(props) {
     super(props);
+
     this.state = {
       isHasTask: true,
       isHeaderC: false,
@@ -50,9 +64,14 @@ export default class Home extends Component {
       taskArray: [],
       isVisible: false
     }
+
     DB.initDB()
-    DB.createTable('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goodsSkuNo VARCHAR(30), pickingShouldCount INT, pickingCount INT, lessCount INT, status INT)')
-    // 有没有任务
+    DB.dropTable('Tasks')
+    DB.dropTable('Base')
+    this._initDBCreate()
+
+
+    /* it has task in tasks */
     DB.selectDataFromTable('Tasks', (is, ret) => {
       if (is) {
         if (ret.length !== 0) {
@@ -66,6 +85,13 @@ export default class Home extends Component {
       }
     })
   }
+
+  /* db create */
+  _initDBCreate () {
+    DB.createTable('CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY NOT NULL, goodsName VARCHAR(30), goodsSkuNo VARCHAR(30), pickingShouldCount INT, pickingCount INT, lessCount INT, status INT)')
+    DB.createTable('CREATE TABLE IF NOT EXISTS Base(id INTEGER PRIMARY KEY NOT NULL, batchId INT, batchNo VARCHAR(30), goodsCount INT, needMinutes INT, pickingStartTime VARCHAR(30), skuNums INT)')
+  }
+
 
   _getTask () {
     let options = {
@@ -84,7 +110,7 @@ export default class Home extends Component {
       .then((response) => {
         return response.json()
       }).then((result) => {
-        console.log(result)
+        let taskArray = []
         let {code, msg, data} = result
         if (code === 200) {
           this.setState({
@@ -97,9 +123,8 @@ export default class Home extends Component {
             goodsList: data.goodsList
           })
           if (this.state.goodsList.length === 0) {
-            Alert.alert('暂无任务')
+            ToastAndroid.show('暂无任务', ToastAndroid.SHORT);
           } else {
-            let taskArray = []
             data.goodsList.forEach(item => {
               let model = new TaskEntity(
                 item.goodsName,
@@ -108,13 +133,8 @@ export default class Home extends Component {
                 0,
                 0,
                 '未开始')
-                DB.insertDataToTable('Tasks', model.model, (is) => {
-                  is && taskArray.push({...model.model})
-                })
-            })
-            this.setState({
-              taskArray: taskArray,
-              isGetTask: false
+                taskArray.push({...model.model})
+                DB.insertDataToTable('Tasks', model.model)
             })
           }
         } else {
@@ -125,6 +145,12 @@ export default class Home extends Component {
             needMinutes: 0
           })
         }
+        return taskArray
+      }).then((arr) => {
+        this.setState({
+          taskArray: arr,
+          isGetTask: false,
+        })
       }).catch((error) => {
         console.log(error)
       })
