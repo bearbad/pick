@@ -1,4 +1,5 @@
 import React, {Fragment, Component} from 'react';
+import { connect } from 'react-redux';
 
 import {
   StyleSheet,
@@ -20,7 +21,7 @@ import {
   Overlay
 } from 'react-native-elements';
 
-export default class Home extends Component {
+class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
   });
@@ -36,7 +37,7 @@ export default class Home extends Component {
   }
 
   _toHome () {
-    this.props.navigation.navigate('Home')
+    // this.props.navigation.navigate('Home')
   }
 
   render () {
@@ -79,12 +80,13 @@ export default class Home extends Component {
                 <TextInput style={styles.conTdInput}/>
               </View>
             </View>
+              <Text>token:{this.props.userInfo.token}</Text>
               <View style={styles.conBot}>
                 <Button
                   title='退出当前登陆'
                   buttonStyle={styles.conBotBtn}
                   titleStyle={styles.btnTitle}
-                  onPress={this._logout.bind(this)}>
+                  onPress={this.props.setUserInfo}>
                 </Button>
               </View>
           </View>
@@ -92,6 +94,39 @@ export default class Home extends Component {
     )
   }
 }
+
+let USER_INFO_TODO = {
+    type: "USER_INFO_TODO",
+    data: {
+        token: ""
+    }
+};
+let OTHER_TODO = {
+    type: "OTHER_TODO",
+    data: ""
+};
+//获取redux里面的数据
+let mapStateToProps = function (state) {
+    return {
+        userInfo: state.userInfo,
+        other: state.other,
+    }
+}
+//给对应的数据赋值
+let mapDispatchToProps = function (dispatch) {
+    return {
+        setUserInfo: () => {
+            USER_INFO_TODO.data.token = "123";
+            return dispatch(USER_INFO_TODO)
+        },
+        setOther: () => {
+            OTHER_TODO.data = "456";
+            return dispatch(OTHER_TODO)
+        }
+    }
+}
+//redux和页面关联
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
   conBot: {
