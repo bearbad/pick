@@ -37,7 +37,7 @@ class Home extends Component {
   }
 
   _toHome () {
-    // this.props.navigation.navigate('Home')
+    this.props.navigation.navigate('Home')
   }
 
   render () {
@@ -80,13 +80,13 @@ class Home extends Component {
                 <TextInput style={styles.conTdInput}/>
               </View>
             </View>
-              <Text>token:{this.props.userInfo.token}</Text>
+              {/*<Text>token:{this.props.userInfo.token}</Text>*/}
               <View style={styles.conBot}>
                 <Button
                   title='退出当前登陆'
                   buttonStyle={styles.conBotBtn}
                   titleStyle={styles.btnTitle}
-                  onPress={this.props.setUserInfo}>
+                  onPress={this._toHome.bind(this)}>
                 </Button>
               </View>
           </View>
@@ -95,7 +95,7 @@ class Home extends Component {
   }
 }
 
-let USER_INFO_TODO = {
+{/*let USER_INFO_TODO = {
     type: "USER_INFO_TODO",
     data: {
         token: ""
@@ -124,9 +124,9 @@ let mapDispatchToProps = function (dispatch) {
             return dispatch(OTHER_TODO)
         }
     }
-}
+}*/}
 //redux和页面关联
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect()(Home);
 
 const styles = StyleSheet.create({
   conBot: {
