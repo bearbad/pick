@@ -7,7 +7,8 @@ import {
   Text,
   TextInput,
   Alert,
-  ToastAndroid
+  ToastAndroid,
+  DeviceEventEmitter
 } from 'react-native';
 
 import {
@@ -29,6 +30,16 @@ export default class Root extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
   });
+
+  componentDidMount(){
+    // let that = this
+    // DeviceEventEmitter.addListener('keyUp', function (e) {
+    //   console.log(e.which)
+    //   that.setState({
+    //     password: e.which.toString()
+    //   })
+    // })
+  }
 
   loginPress () {
     if (this.state.username === '') {
@@ -59,6 +70,7 @@ export default class Root extends Component {
               <TextInput
                 placeholder="请输入用户名"
                 style={styles.logonInput}
+                value={this.state.username}
                 onChangeText={(text) => {this.state.username = text}}>
               </TextInput>
             </View>
@@ -67,6 +79,7 @@ export default class Root extends Component {
               <TextInput
                 placeholder="请输入密码"
                 style={styles.logonInput}
+                value={this.state.password}
                 onChangeText={(text) => {this.state.password = text}}>
               </TextInput>
             </View>
