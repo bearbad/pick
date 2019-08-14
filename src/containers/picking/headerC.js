@@ -15,6 +15,29 @@ export default class HeaderC extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      minutes: null
+    }
+  }
+
+  componentDidMount () {
+    let _minutes = this.props.needMinutes
+    this.setState({
+      minutes: _minutes
+    })
+    this.timer = setInterval(() => {
+      this.setState({
+        minutes: _minutes
+      })
+      _minutes--
+      if (_minutes === -1) {
+        clearInterval(this.timer)
+      }
+    }, 60000);
+  }
+
+  componentWillUnmount () {
+    this.timer && clearInterval(this.timer);
   }
 
   render () {
@@ -25,7 +48,7 @@ export default class HeaderC extends Component {
             <Text style={styles.titleC}>批次号：{this.props.batchNo}</Text>
           </View>
           <View>
-            <Text style={styles.titleC}>剩余时间：{this.props.needMinutes}分钟</Text>
+            <Text style={styles.titleC}>剩余时间：{this.state.minutes}分钟</Text>
           </View>
         </View>
       </Fragment>

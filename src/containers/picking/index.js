@@ -41,7 +41,6 @@ export default class Home extends Component {
     this.timer = setInterval(() => {
         if (!this.state.isHasTask) return
         this._getTask()
-        ToastAndroid.show('每隔 5 秒钟触发一次', ToastAndroid.SHORT);
       }, 5000);
   }
 
