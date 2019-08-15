@@ -31,7 +31,6 @@ import TaskList from './taskList.js'
 import TaskEntity from '../entity/task.js'
 
 import DB from '../../db/sqlite.js'
-
 export default class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
@@ -45,12 +44,11 @@ export default class Home extends Component {
   }
 
   componentWillUnmount () {
-    this.timer && setInterval(this.timer);
+    this.timer && clearInterval(this.timer);
   }
 
   constructor(props) {
     super(props);
-
     this.state = {
       isHasTask: true,
       isHeaderC: false,
@@ -65,8 +63,8 @@ export default class Home extends Component {
     }
 
     DB.initDB()
-    DB.dropTable('Tasks')
-    DB.dropTable('Base')
+    // DB.dropTable('Tasks')
+    // DB.dropTable('Base')
     this._initDBCreate()
 
 

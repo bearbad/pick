@@ -70,7 +70,7 @@ export default class Root extends Component {
               <TextInput
                 placeholder="请输入用户名"
                 style={styles.logonInput}
-                value={this.state.username}
+                autoFocus={true}
                 onChangeText={(text) => {this.state.username = text}}>
               </TextInput>
             </View>
@@ -79,7 +79,6 @@ export default class Root extends Component {
               <TextInput
                 placeholder="请输入密码"
                 style={styles.logonInput}
-                value={this.state.password}
                 onChangeText={(text) => {this.state.password = text}}>
               </TextInput>
             </View>
